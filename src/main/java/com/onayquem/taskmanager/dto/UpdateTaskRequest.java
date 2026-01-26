@@ -10,5 +10,5 @@ public record UpdateTaskRequest(
     @Size(max = 300, message = "Descrição deve ter no máximo 300 caractere")
     String description,
 
-    boolean completed
+    Boolean completed
 ) {}
