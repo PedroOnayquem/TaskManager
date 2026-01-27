@@ -10,7 +10,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.time.Instant;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -36,7 +35,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", Instant.now().toString());
         body.put("status", 400);
-        body.put("erros", "Bad Request");
+        body.put("error", "Bad Request");
         body.put("message", "Erro de validação");
         body.put("fields", errors);
 

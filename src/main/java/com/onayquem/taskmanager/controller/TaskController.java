@@ -1,8 +1,8 @@
 package com.onayquem.taskmanager.controller;
 
 import com.onayquem.taskmanager.dto.CreateTaskRequest;
+import com.onayquem.taskmanager.dto.TaskResponse;
 import com.onayquem.taskmanager.dto.UpdateTaskRequest;
-import com.onayquem.taskmanager.entity.Task;
 import com.onayquem.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -17,31 +17,29 @@ public class TaskController {
     private final TaskService service;
 
     public TaskController(TaskService service) {
-
         this.service = service;
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Task create(@Valid @RequestBody CreateTaskRequest req) {
+    public TaskResponse create(@Valid @RequestBody CreateTaskRequest req) {
         return service.create(req);
     }
     @GetMapping
-    public List<Task> findAll(){
+    public List<TaskResponse> findAll(){
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Task findById(@PathVariable Long id){
+    public TaskResponse findById(@PathVariable Long id){
         return service.findById(id);
     }
     @PatchMapping("/{id}")
-    public Task update(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest req){
+    public TaskResponse update(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest req){
         return service.update(id, req);
     }
     @PatchMapping("/{id}/complete")
-    public Task complete(@PathVariable Long id){
+    public TaskResponse complete(@PathVariable Long id){
         return service.markCompleted(id);
     }
 

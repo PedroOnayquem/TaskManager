@@ -1,6 +1,7 @@
 package com.onayquem.taskmanager.service;
 
 import com.onayquem.taskmanager.dto.CreateTaskRequest;
+import com.onayquem.taskmanager.dto.TaskResponse;
 import com.onayquem.taskmanager.dto.UpdateTaskRequest;
 import com.onayquem.taskmanager.entity.Task;
 import com.onayquem.taskmanager.exception.ResourceNotFoundException;
@@ -19,23 +20,24 @@ public class TaskService {
         this.repository = repository;
     }
     @Transactional
-    public Task create(CreateTaskRequest req) {
+    public TaskResponse create(CreateTaskRequest req) {
         Task task = new Task();
         task.setTitle(req.title());
         task.setDescription(req.description());
         task.setCompleted(false);
-        return repository.save(task);
+        return toResponse(repository.save(task));
     }
-    public List<Task> findAll() {
-        return repository.findAll();
+    public List<TaskResponse> findAll() {
+        return repository.findAll().stream()
+                .map(this::toResponse)
+                .toList();
     }
-    public Task findById(Long id) {
-        return repository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Task " + id + " não encontrada"));
+    public TaskResponse findById(Long id) {
+        return toResponse(getEntity(id));
     }
     @Transactional
-    public Task update(Long id, UpdateTaskRequest req) {
-        Task task = findById(id);
+    public TaskResponse update(Long id, UpdateTaskRequest req) {
+        Task task = getEntity(id);
 
         if (req.title() != null) {
             task.setTitle(req.title());
@@ -46,18 +48,30 @@ public class TaskService {
         if (req.completed() != null) {
             task.setCompleted(req.completed());
         }
-        return repository.save(task);
+        return toResponse(repository.save(task));
     }
     @Transactional
-    public Task markCompleted(Long id){
-        Task task = findById(id);
+    public TaskResponse markCompleted(Long id){
+        Task task = getEntity(id);
         task.setCompleted(true);
-        return repository.save(task);
+        return toResponse(repository.save(task));
     }
     @Transactional
     public void delete(Long id){
-        Task task = findById(id);
+        Task task = getEntity(id);
         repository.delete(task);
+    }
+    private Task getEntity(Long id) {
+        return repository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Task" + id + "não encontrada"));
+    }
+    private TaskResponse toResponse(Task task){
+        return new TaskResponse(
+                task.getId(),
+                task.getTitle(),
+                task.getDescription(),
+                task.isCompleted()
+        );
     }
 
 }
