@@ -37,7 +37,7 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
-Executando o projeto
+## Executando o projeto
 
 Clone o repositório:
 git clone https://github.com/PedroOnayquem/TaskManager.git
@@ -51,7 +51,7 @@ mvn spring-boot:run
 A API estará disponível em:
 http://localhost:8080
 
-Endpoints principais
+## Endpoints principais
 
 POST /tasks - Criar tarefa
 
@@ -63,3 +63,5 @@ PUT /tasks/{id} - Atualizar tarefa
 
 DELETE /tasks/{id} - Remover tarefa
 
+Autor,
+Pedro Onayquen
