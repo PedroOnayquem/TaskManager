@@ -1,33 +1,69 @@
 # TaskManager
 
-API REST para gerenciamento de tarefas desenvolvida em Java com Spring Boot.  
-Permite criar, listar, atualizar e remover tarefas, além de marcar como concluídas.
+Aplicação Full Stack para gerenciamento de tarefas. O projeto consiste em uma API REST desenvolvida com Spring Boot e um frontend para interação com o usuário, permitindo criar, listar, atualizar e remover tarefas, além de controlar seu status.
 
-## Tecnologias
+## Demonstração
 
+Frontend disponível em:
+http://task-manager-umber-seven-55.vercel.app
+
+---
+
+## Tecnologias Utilizadas
+
+### Backend
 - Java
 - Spring Boot
 - Spring Data JPA
 - PostgreSQL
 - Maven
 
+### Frontend
+- TypeScript
+- JavaScript
+- Framework SPA (frontend localizado na pasta `frontend`)
+
+---
+
 ## Funcionalidades
 
-- Criar tarefa
+- Criar tarefas
 - Listar tarefas
 - Buscar tarefa por ID
 - Atualizar tarefa
 - Remover tarefa
-- Marcar tarefa como concluída
+- Marcar tarefas como concluídas
+- Integração entre frontend e API REST
 
-## Configuração do banco
+---
+
+## Estrutura do Projeto
+
+TaskManager
+│
+├── src # Código do backend (Spring Boot)
+├── frontend # Aplicação frontend
+├── pom.xml # Gerenciamento de dependências Maven
+└── README.md
+
+
+---
+
+## Configuração do Banco de Dados
 
 O projeto utiliza PostgreSQL.
 
-Crie o banco:
-sql 
+### 1. Criar banco de dados
+
+``sql
 CREATE DATABASE taskmanager;
-Configure o arquivo application.properties:
+
+Configurar application.properties
+Localizado em:
+
+src/main/resources/application.properties
+
+Configuraçao Exemplo
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/taskmanager
 spring.datasource.username=SEU_USUARIO
@@ -37,31 +73,63 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
-## Executando o projeto
+### Como Executar o Projeto
+Clonar repositório
 
-Clone o repositório:
 git clone https://github.com/PedroOnayquem/TaskManager.git
-
-Entre na pasta:
 cd TaskManager
 
-Execute:
+## Executar Backend
+
+Pré-requisitos:
+Java 17+
+Maven
+PostgreSQL
+
+## Executar:
 mvn spring-boot:run
 
 A API estará disponível em:
+
 http://localhost:8080
 
-## Endpoints principais
+## Executar Frontend
+cd frontend
+npm install
+npm run dev
 
-POST /tasks - Criar tarefa
+## Endpoints da API
+Criar tarefa
+POST /tasks
 
-GET /tasks - Listar tarefas
+Listar tarefas
+GET /tasks
 
-GET /tasks/{id} - Buscar por ID
+Buscar tarefa por ID
+GET /tasks/{id}
 
-PUT /tasks/{id} - Atualizar tarefa
+Atualizar tarefa
+PUT /tasks/{id}
 
-DELETE /tasks/{id} - Remover tarefa
+Remover tarefa
+DELETE /tasks/{id}
 
-Autor,
-Pedro Onayquen
+## Modelo de Tarefa (Exemplo)
+{
+  "title": "Estudar Spring Boot",
+  "description": "Revisar conceitos de API REST",
+  "completed": false
+}
+
+## Variáveis de Ambiente
+Recomenda-se configurar variáveis sensíveis como credenciais do banco através de arquivos .env ou variáveis do sistema.
+
+## Melhorias Futuras
+Autenticação de usuários
+Filtros e paginação
+Dashboard com estatísticas
+Deploy automatizado
+Testes automatizados
+
+## Autor
+Pedro Onayquem
