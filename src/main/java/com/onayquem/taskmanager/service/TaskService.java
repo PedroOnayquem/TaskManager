@@ -4,6 +4,7 @@ import com.onayquem.taskmanager.dto.CreateTaskRequest;
 import com.onayquem.taskmanager.dto.TaskResponse;
 import com.onayquem.taskmanager.dto.UpdateTaskRequest;
 import com.onayquem.taskmanager.entity.Task;
+import com.onayquem.taskmanager.entity.User;
 import com.onayquem.taskmanager.exception.ResourceNotFoundException;
 import com.onayquem.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -19,25 +20,30 @@ public class TaskService {
     public TaskService(TaskRepository repository) {
         this.repository = repository;
     }
+
     @Transactional
-    public TaskResponse create(CreateTaskRequest req) {
+    public TaskResponse create(CreateTaskRequest req, User user) {
         Task task = new Task();
         task.setTitle(req.title());
         task.setDescription(req.description());
         task.setCompleted(false);
+        task.setUser(user);
         return toResponse(repository.save(task));
     }
-    public List<TaskResponse> findAll() {
-        return repository.findAll().stream()
+
+    public List<TaskResponse> findAllByUser(User user) {
+        return repository.findByUser(user).stream()
                 .map(this::toResponse)
                 .toList();
     }
-    public TaskResponse findById(Long id) {
-        return toResponse(getEntity(id));
+
+    public TaskResponse findByIdAndUser(Long id, User user) {
+        return toResponse(getEntity(id, user));
     }
+
     @Transactional
-    public TaskResponse update(Long id, UpdateTaskRequest req) {
-        Task task = getEntity(id);
+    public TaskResponse update(Long id, UpdateTaskRequest req, User user) {
+        Task task = getEntity(id, user);
 
         if (req.title() != null) {
             task.setTitle(req.title());
@@ -50,22 +56,26 @@ public class TaskService {
         }
         return toResponse(repository.save(task));
     }
+
     @Transactional
-    public TaskResponse markCompleted(Long id){
-        Task task = getEntity(id);
+    public TaskResponse markCompleted(Long id, User user) {
+        Task task = getEntity(id, user);
         task.setCompleted(true);
         return toResponse(repository.save(task));
     }
+
     @Transactional
-    public void delete(Long id){
-        Task task = getEntity(id);
+    public void delete(Long id, User user) {
+        Task task = getEntity(id, user);
         repository.delete(task);
     }
-    private Task getEntity(Long id) {
-        return repository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Task" + id + "não encontrada"));
+
+    private Task getEntity(Long id, User user) {
+        return repository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new ResourceNotFoundException("Task " + id + " não encontrada"));
     }
-    private TaskResponse toResponse(Task task){
+
+    private TaskResponse toResponse(Task task) {
         return new TaskResponse(
                 task.getId(),
                 task.getTitle(),
