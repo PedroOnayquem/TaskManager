@@ -122,19 +122,19 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-purple-400 animate-spin" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-sky-400 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900">
       {/* Header */}
       <header className="bg-white/5 backdrop-blur-lg border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
               <ListTodo className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -176,7 +176,7 @@ export default function Dashboard() {
               onClick={() => setFilter('all')}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 filter === 'all'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-blue-600 text-white'
                   : 'bg-white/5 text-gray-300 hover:bg-white/10'
               }`}
             >
@@ -205,7 +205,7 @@ export default function Dashboard() {
           </div>
           <button
             onClick={() => openModal()}
-            className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition"
+            className="flex items-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition"
           >
             <Plus className="w-5 h-5" />
             Nova Tarefa
@@ -227,7 +227,7 @@ export default function Dashboard() {
               {filter === 'all' && (
                 <button
                   onClick={() => openModal()}
-                  className="mt-4 text-purple-400 hover:text-purple-300 font-medium"
+                  className="mt-4 text-cyan-400 hover:text-cyan-300 font-medium"
                 >
                   Criar sua primeira tarefa
                 </button>
@@ -248,7 +248,7 @@ export default function Dashboard() {
                   {task.completed ? (
                     <CheckCircle2 className="w-6 h-6 text-green-400" />
                   ) : (
-                    <Circle className="w-6 h-6 text-gray-400 hover:text-purple-400 transition" />
+                    <Circle className="w-6 h-6 text-gray-400 hover:text-sky-400 transition" />
                   )}
                 </button>
                 <div className="flex-1 min-w-0">
@@ -308,7 +308,7 @@ export default function Dashboard() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition"
                   placeholder="Digite o título da tarefa"
                   required
                 />
@@ -322,7 +322,7 @@ export default function Dashboard() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition resize-none"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition resize-none"
                   placeholder="Adicione uma descrição"
                 />
               </div>
@@ -338,7 +338,7 @@ export default function Dashboard() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {saving ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
