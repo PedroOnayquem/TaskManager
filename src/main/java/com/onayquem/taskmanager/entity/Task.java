@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tasks")
-
 public class Task {
 
     @Id
@@ -21,5 +20,9 @@ public class Task {
     private String description;
 
     private boolean completed = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }
